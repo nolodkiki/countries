@@ -1,0 +1,18 @@
+@import "../../styles/main.scss";
+.header_inner {
+    padding: 30px 0;
+    font-weight: $font-weight-800;
+    h1 {
+        font-size: $font-size-h1;
+    }
+}
+
+.mod {
+    font-weight: $font-weight-300;
+    font-size: $primary-font-size;
+    gap: 10px;
+    cursor: pointer;
+    & img {
+        margin-bottom: 2px;
+    }
+}

@@ -1,0 +1,13 @@
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 50px;
+
+    margin-top: 40px;
+    @media screen and (max-width: 1150px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media screen and (max-width: 900px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}

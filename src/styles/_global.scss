@@ -1,0 +1,10 @@
+@import "./variables";
+#root {
+    color: $light-primary-color;
+    font-size: $primary-font-size;
+    font-family: $font-family-root;
+    font-weight: $font-weight-800;
+    font-style: $font-style-root;
+    font-size: $font-size-primary;
+    background-color: $light-background-color;
+}

@@ -1,0 +1,15 @@
+@import "../../styles/main.scss";
+
+.search {
+    position: relative;
+    & img {
+        height: 28px;
+        position: absolute;
+        left: 30px;
+        top: 15px;
+    }
+    & input {
+        padding-left: 80px;
+        background-color: $dark-primary-color;
+    }
+}
