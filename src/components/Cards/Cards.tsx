@@ -1,8 +1,11 @@
 import { FC } from "react";
 import Card from "./Card/Card";
 import style from "./cards.module.scss"
+import { test } from "../../redux/slices/dataSlice";
+import { useAppDispatch } from "../../hook";
 
 const Cards: FC = () => {
+    const dispatch = useAppDispatch()
     return (
         <div className={`${style.cards}`}>
             <Card />
@@ -10,6 +13,10 @@ const Cards: FC = () => {
             <Card />
             <Card />
             <Card />
+            <div className="testButton">
+                <button onClick={() => { dispatch(test('from cards')) }}>TEST</button>
+            </div>
+
         </div>
     )
 }

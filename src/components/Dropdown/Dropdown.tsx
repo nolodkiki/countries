@@ -15,11 +15,11 @@ const Dropdown: FC = () => {
             </button>
             {show
                 ? <ul className={style.dropdown_menu}>
-                    <li className="dropdown-item">Africa</li>
-                    <li className="dropdown-item">America</li>
-                    <li className="dropdown-item">Asia</li>
-                    <li className="dropdown-item">Eroupe</li>
-                    <li className="dropdown-item">Oceania</li>
+                    <li onClick={() => { setShow(false) }} className="dropdown-item">Africa</li>
+                    <li onClick={() => { setShow(false) }} className="dropdown-item">America</li>
+                    <li onClick={() => { setShow(false) }} className="dropdown-item">Asia</li>
+                    <li onClick={() => { setShow(false) }} className="dropdown-item">Eroupe</li>
+                    <li onClick={() => { setShow(false) }} className="dropdown-item">Oceania</li>
                 </ul>
                 : null}
 
