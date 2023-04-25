@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Card from "./Card/Card";
 import style from "./cards.module.scss"
-import { test } from "../../redux/slices/dataSlice";
+import { fetchData } from "../../redux/slices/dataSlice";
 import { useAppDispatch } from "../../hook";
 
 const Cards: FC = () => {
@@ -14,7 +14,7 @@ const Cards: FC = () => {
             <Card />
             <Card />
             <div className="testButton">
-                <button onClick={() => { dispatch(test('from cards')) }}>TEST</button>
+                <button onClick={() => { dispatch(fetchData()) }}>TEST</button>
             </div>
 
         </div>

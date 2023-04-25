@@ -6,7 +6,7 @@ const Search: FC = () => {
     return (
         <div className={style.search}>
             <img className={`icon`} src={searchIcon} alt="" />
-            <input className={`${style.input} search_input`} type="text" placeholder='Search for counttries' />
+            <input className={`${style.input} input`} type="text" placeholder='Search for counttries' />
         </div>
     )
 }
