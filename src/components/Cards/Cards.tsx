@@ -1,21 +1,23 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Card from "./Card/Card";
 import style from "./cards.module.scss"
 import { fetchData } from "../../redux/slices/dataSlice";
-import { useAppDispatch } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
 
 const Cards: FC = () => {
     const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(fetchData())
+    }, [])
+
+    const state = useAppSelector(state => state.data.countries)
+    const renderCards = state.map(({ name, population, region, capital }) => (
+        <Card key={name} name={name} population={population} region={region} capital={capital} />
+    ))
+
     return (
         <div className={`${style.cards}`}>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <div className="testButton">
-                <button onClick={() => { dispatch(fetchData()) }}>TEST</button>
-            </div>
+            {renderCards}
 
         </div>
     )

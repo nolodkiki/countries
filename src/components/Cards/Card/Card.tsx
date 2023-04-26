@@ -2,7 +2,15 @@ import { FC } from "react";
 import style from "./card.module.scss"
 import flag from "../../../assets/flag.png"
 
-const Card: FC = () => {
+
+interface IProps {
+    name: string,
+    population: number,
+    region: string,
+    capital: string[],
+}
+
+const Card: FC<IProps> = ({ name, population, region, capital }) => {
     return (
         <div className={style.card}>
             <div className={style.flag}>
@@ -10,16 +18,16 @@ const Card: FC = () => {
             </div>
             <div className={style.info}>
                 <div className={style.info_country}>
-                    South Korea
+                    {name}
                 </div>
                 <div className={style.info_details}>
-                    Population: <span>70,000,000</span>
+                    Population: <span>{population}</span>
                 </div>
                 <div className={style.info_details}>
-                    Region: <span>Asia</span>
+                    Region: <span>{region}</span>
                 </div>
                 <div className={style.info_details}>
-                    Capital: <span>Seoul</span>
+                    Capital: <span>{capital}</span>
                 </div>
             </div>
         </div>

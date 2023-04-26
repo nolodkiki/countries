@@ -15,21 +15,20 @@ interface IinitialState {
     error: string | null
 }
 
-interface IItem {
+interface IMap {
     name: {
-        common: string;
-    };
-    population: number;
-    region: string;
-    capital: string[];
+        common: string
+    }
 }
 
-export const fetchData = createAsyncThunk<Idata[]>(
+type TItem = Idata & IMap
+
+export const fetchData = createAsyncThunk<Idata[], undefined>(
     'data/fetchData',
     async function () {
         const respons = await fetch(`https://restcountries.com/v3.1/all`)
         const data = await respons.json()
-        return data.map((item: IItem) => ({ name: item.name.common, population: item.population, region: item.region, capital: item.capital }))
+        return data.map((item: TItem) => ({ name: item.name.common, population: item.population, region: item.region, capital: item.capital }))
     }
 )
 
