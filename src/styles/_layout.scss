@@ -19,6 +19,12 @@
     font-size: 30px;
     background-color: $dark-primary-color;
     @include box-shadow(0px 4px 12px -3px rgba(34, 60, 80, 0.1));
+    transition: $animate-transition;
+    &_dark {
+        transition: $animate-transition;
+        background-color: $dark-background-color;
+        color: $dark-primary-color;
+    }
 }
 
 .input {

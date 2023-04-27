@@ -1,7 +1,7 @@
 .cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 50px;
+    gap: 40px;
 
     margin-top: 40px;
     @media screen and (max-width: 1150px) {

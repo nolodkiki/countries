@@ -18,6 +18,7 @@
         }
     }
     &_menu {
+        transition: $animate-transition;
         position: absolute;
         width: 184px;
         margin-top: 5px;

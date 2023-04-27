@@ -1,6 +1,6 @@
 import { FC } from "react";
 import style from "./card.module.scss"
-import flag from "../../../assets/flag.png"
+// import flag from "../../../assets/flag.png"
 
 
 interface IProps {
@@ -8,12 +8,13 @@ interface IProps {
     population: number,
     region: string,
     capital: string[],
+    flag: string
 }
 
-const Card: FC<IProps> = ({ name, population, region, capital }) => {
+const Card: FC<IProps> = ({ name, population, region, capital, flag }) => {
     return (
         <div className={style.card}>
-            <div className={style.flag}>
+            <div className={style.card_flag}>
                 <img src={flag} alt="flag" />
             </div>
             <div className={style.info}>

@@ -7,12 +7,12 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 const Cards: FC = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(fetchData())
+        dispatch(fetchData('all'))
     }, [])
 
     const state = useAppSelector(state => state.data.countries)
-    const renderCards = state.map(({ name, population, region, capital }) => (
-        <Card key={name} name={name} population={population} region={region} capital={capital} />
+    const renderCards = state.map(({ name, population, region, capital, flag }) => (
+        <Card key={name} name={name} population={population} region={region} capital={capital} flag={flag} />
     ))
 
     return (
