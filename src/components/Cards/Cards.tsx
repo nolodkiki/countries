@@ -3,6 +3,7 @@ import Card from "./Card/Card";
 import style from "./cards.module.scss"
 import { fetchData } from "../../redux/slices/dataSlice";
 import { useAppDispatch, useAppSelector } from "../../hook";
+import Navbar from "../Navbar/Navbar";
 
 const Cards: FC = () => {
     const dispatch = useAppDispatch()
@@ -16,10 +17,13 @@ const Cards: FC = () => {
     ))
 
     return (
-        <div className={`${style.cards}`}>
-            {renderCards}
+        <>
+            <Navbar />
+            <div className={`${style.cards}`}>
+                {renderCards}
+            </div>
+        </>
 
-        </div>
     )
 }
 export default Cards
