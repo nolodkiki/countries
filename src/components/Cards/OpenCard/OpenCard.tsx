@@ -8,6 +8,7 @@ import { useAppSelector } from "../../../hook";
 
 interface IProps {
     name: string,
+    nativeName: string,
     population: number,
     region: string,
     capital: string[],
@@ -19,7 +20,7 @@ interface IProps {
     borders: string[]
 }
 
-const OpenCard: FC<IProps> = ({ name, population, region, capital, flag, subregion, tld, currencies, languages, borders }) => {
+const OpenCard: FC<IProps> = ({ name, nativeName, population, region, capital, flag, subregion, tld, currencies, languages, borders }) => {
 
 
     return (
@@ -31,11 +32,11 @@ const OpenCard: FC<IProps> = ({ name, population, region, capital, flag, subregi
                 <div className={style.information}>
                     <div className={style.country_name}>{name}</div>
                     <div className={style.detailed}>
-                        <p>Native Name: <span>Belgie</span></p>
+                        <p>Native Name: <span>{nativeName}</span></p>
                         <p>Population: <span>{population}</span></p>
                         <p>Region: <span>{region}</span></p>
                         <p>Sub Region: <span>{subregion}</span></p>
-                        <p>Capital: <span>Brussles</span></p>
+                        <p>Capital: <span>{capital}</span></p>
                         <p>Top Level Domain: <span>{tld.map(item => (
                             item
                         ))}</span></p>

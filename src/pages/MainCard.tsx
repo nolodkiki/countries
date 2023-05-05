@@ -8,7 +8,7 @@ import { useAppSelector } from "../hook"
 
 
 const MainCard: FC = () => {
-    const { name, population, region, capital, flag, subregion, tld, currencies, languages, borders } = useAppSelector(state => state.data.country[0])
+    const { name, nativeName, population, region, capital, flag, subregion, tld, currencies, languages, borders } = useAppSelector(state => state.data.country[0])
     const { loading, country } = useAppSelector(state => state.data)
     useEffect(() => { }, [loading])
 
@@ -20,7 +20,7 @@ const MainCard: FC = () => {
                     ? <div>Loading...</div>
                     : country.length > 0
                         ? (
-                            <OpenCard key={name} name={name} population={population} region={region} capital={capital} flag={flag} subregion={subregion} tld={tld} currencies={currencies} languages={languages} borders={borders} />
+                            <OpenCard key={name} name={name} nativeName={nativeName} population={population} region={region} capital={capital} flag={flag} subregion={subregion} tld={tld} currencies={currencies} languages={languages} borders={borders} />
                         )
                         : (
                             <div>No data available</div>

@@ -11,6 +11,7 @@ interface Idata {
     flag: string
 }
 interface ICountry {
+    nativeName: string
     subregion: string[],
     tld: string[],
     currencies: string,
@@ -59,6 +60,7 @@ export const fetchCountry = createAsyncThunk<TCountryItem[], string>(
         return data.map((item: TCountryItem) => ({
             flag: item.flags.svg,
             name: item.name.common,
+            nativeName: Object.values(item.name.nativeName)[0].official,
             population: item.population,
             region: item.region,
             subregion: item.subregion,
@@ -78,6 +80,7 @@ const initialState: IinitialState = {
     country: [
         {
             name: '',
+            nativeName: '',
             population: 0,
             region: '',
             capital: [],
