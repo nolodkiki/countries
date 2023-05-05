@@ -1,6 +1,11 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import style from "./card.module.scss"
+import { useAppDispatch, useAppSelector } from "../../../hook";
+import { fetchCountry } from "../../../redux/slices/dataSlice";
 // import flag from "../../../assets/flag.png"
+import { Link } from 'react-router-dom'
+import { useSelector } from "react-redux";
+
 
 
 interface IProps {
@@ -12,8 +17,19 @@ interface IProps {
 }
 
 const Card: FC<IProps> = ({ name, population, region, capital, flag }) => {
+    const dispatch = useAppDispatch()
+    const { loading } = useAppSelector(state => state.data)
+
+
+
+
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     return (
-        <div className={style.card}>
+        <Link to='/open' onClick={() => dispatch(fetchCountry(name))} className={style.card}>
             <div className={style.card_flag}>
                 <img src={flag} alt="flag" />
             </div>
@@ -31,7 +47,7 @@ const Card: FC<IProps> = ({ name, population, region, capital, flag }) => {
                     Capital: <span>{capital}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

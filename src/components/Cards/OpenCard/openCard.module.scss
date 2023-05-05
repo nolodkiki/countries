@@ -38,7 +38,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     img {
-        height: 420px;
+        max-height: 330px;
+        margin: 0 auto;
     }
 }
 

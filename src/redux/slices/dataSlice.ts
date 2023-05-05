@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+// import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../index'
+
 
 interface Idata {
     name: string,
@@ -9,9 +10,19 @@ interface Idata {
     capital: string[],
     flag: string
 }
+interface ICountry {
+    subregion: string[],
+    tld: string[],
+    currencies: string,
+    languages: string[],
+    borders: string[]
+}
+
+type TCountry = ICountry & Idata
 
 interface IinitialState {
     countries: Idata[]
+    country: TCountry[]
     regions: string[]
     loading: boolean
     error: string | null
@@ -26,6 +37,10 @@ interface IMap {
     }
 }
 
+type TCountryItem = TCountry & IMap
+
+
+
 type TItem = Idata & IMap
 
 export const fetchData = createAsyncThunk<Idata[], string>(
@@ -36,11 +51,44 @@ export const fetchData = createAsyncThunk<Idata[], string>(
         return data.map((item: TItem) => ({ name: item.name.common, population: item.population, region: item.region, capital: item.capital, flag: item.flags.svg }))
     }
 )
+export const fetchCountry = createAsyncThunk<TCountryItem[], string>(
+    'data/fetchCountry',
+    async function (countryName) {
+        const respons = await fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+        const data = await respons.json()
+        return data.map((item: TCountryItem) => ({
+            flag: item.flags.svg,
+            name: item.name.common,
+            population: item.population,
+            region: item.region,
+            subregion: item.subregion,
+            capital: item.capital,
+            tld: item.tld,
+            currencies: Object.keys(item.currencies)[0],
+            languages: Object.values(item.languages),
+            borders: item.borders
+        }))
+    }
+)
 
 
 const initialState: IinitialState = {
     countries: [],
     regions: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+    country: [
+        {
+            name: '',
+            population: 0,
+            region: '',
+            capital: [],
+            flag: '',
+            subregion: [],
+            tld: [],
+            currencies: '',
+            languages: [],
+            borders: []
+        }
+    ],
     loading: false,
     error: null
 }
@@ -49,6 +97,9 @@ export const dataSlice = createSlice({
     name: 'data',
     initialState,
     reducers: {
+        clearCountry(state) {
+            state.country = []
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -56,14 +107,23 @@ export const dataSlice = createSlice({
                 state.loading = true
                 state.error = null
             })
+            .addCase(fetchCountry.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
             .addCase(fetchData.fulfilled, (state, action) => {
                 state.countries = action.payload
+                state.loading = false
+            })
+            .addCase(fetchCountry.fulfilled, (state, action) => {
+                state.country = action.payload
+                state.loading = false
             })
 
     }
 })
 
-export const { } = dataSlice.actions
+export const { clearCountry } = dataSlice.actions
 
 export const selectCount = (state: RootState) => state.data
 
