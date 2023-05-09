@@ -46,7 +46,8 @@
 .information {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 50px;
+    // justify-content: space-between;
 }
 
 .country_name {

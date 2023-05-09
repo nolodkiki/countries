@@ -13,7 +13,7 @@ interface Idata {
 interface ICountry {
     nativeName: string
     subregion: string[],
-    tld: string[],
+    tld?: string[],
     currencies: string,
     languages: string[],
     borders: string[]
@@ -24,6 +24,7 @@ type TCountry = ICountry & Idata
 interface IinitialState {
     countries: Idata[]
     country: TCountry[]
+    searchCountry: Idata[]
     regions: string[]
     loading: boolean
     error: string | null
@@ -38,7 +39,18 @@ interface IMap {
     }
 }
 
-type TCountryItem = TCountry & IMap
+interface INativeName {
+    [key: string]: {
+        common: string,
+        official: string
+    }
+}
+
+type TCountryItem = TCountry & IMap & {
+    name: {
+        nativeName?: INativeName
+    }
+}
 
 
 
@@ -49,18 +61,24 @@ export const fetchData = createAsyncThunk<Idata[], string>(
     async function (filter = 'all') {
         const respons = await fetch(`https://restcountries.com/v3.1/${filter}`)
         const data = await respons.json()
-        return data.map((item: TItem) => ({ name: item.name.common, population: item.population, region: item.region, capital: item.capital, flag: item.flags.svg }))
+        return data.map((item: TItem) => ({
+            name: item.name.common,
+            population: item.population,
+            region: item.region,
+            capital: item.capital,
+            flag: item.flags.svg
+        }))
     }
 )
 export const fetchCountry = createAsyncThunk<TCountryItem[], string>(
     'data/fetchCountry',
     async function (countryName) {
-        const respons = await fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+        const respons = await fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
         const data = await respons.json()
         return data.map((item: TCountryItem) => ({
             flag: item.flags.svg,
             name: item.name.common,
-            nativeName: Object.values(item.name.nativeName)[0].official,
+            nativeName: item.name.nativeName?.[Object.keys(item.name.nativeName)[0]]?.official,
             population: item.population,
             region: item.region,
             subregion: item.subregion,
@@ -79,12 +97,12 @@ const initialState: IinitialState = {
     regions: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
     country: [
         {
+            flag: '',
             name: '',
             nativeName: '',
             population: 0,
             region: '',
             capital: [],
-            flag: '',
             subregion: [],
             tld: [],
             currencies: '',
@@ -92,6 +110,7 @@ const initialState: IinitialState = {
             borders: []
         }
     ],
+    searchCountry: [],
     loading: false,
     error: null
 }
@@ -100,8 +119,8 @@ export const dataSlice = createSlice({
     name: 'data',
     initialState,
     reducers: {
-        clearCountry(state) {
-            state.country = []
+        search(state, action) {
+            state.searchCountry = state.countries.filter(item => item.name.toLowerCase().startsWith(`${action.payload}`))
         }
     },
     extraReducers: (builder) => {
@@ -126,7 +145,7 @@ export const dataSlice = createSlice({
     }
 })
 
-export const { clearCountry } = dataSlice.actions
+export const { search } = dataSlice.actions
 
 export const selectCount = (state: RootState) => state.data
 
