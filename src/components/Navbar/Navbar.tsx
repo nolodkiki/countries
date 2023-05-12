@@ -2,7 +2,6 @@ import { FC, useState } from "react"
 import Dropdown from "../Dropdown/Dropdown"
 import Search from "../Search/Search"
 import style from './navbar.module.scss'
-import { useAppDispatch, useAppSelector } from "../../hook"
 
 
 interface IProps {
@@ -11,7 +10,6 @@ interface IProps {
 }
 
 const Navbar: FC<IProps> = ({ value, handleSearch }) => {
-    const dispatch = useAppDispatch()
 
     return (
         <div className={`${style.search_wrapper} flex-between`}>

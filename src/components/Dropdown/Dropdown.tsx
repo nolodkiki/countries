@@ -2,7 +2,7 @@ import style from './dropdown.module.scss'
 
 import arrow from '../../assets/icons/arrow.png'
 import { FC, useState } from 'react'
-import { fetchData, search } from '../../redux/slices/dataSlice'
+import { fetchData } from '../../redux/slices/dataSlice'
 import { useAppDispatch, useAppSelector } from '../../hook'
 
 const Dropdown: FC = () => {
@@ -13,7 +13,6 @@ const Dropdown: FC = () => {
     const [show, setShow] = useState(false)
     const fetchRegion = (region: string) => {
         setShow(false)
-        dispatch(search(''))
         dispatch(fetchData(region))
     }
 

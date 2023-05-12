@@ -111,7 +111,7 @@ const initialState: IinitialState = {
         }
     ],
     searchCountry: [],
-    loading: false,
+    loading: true,
     error: null
 }
 
@@ -120,7 +120,9 @@ export const dataSlice = createSlice({
     initialState,
     reducers: {
         search(state, action) {
-            state.searchCountry = state.countries.filter(item => item.name.toLowerCase().startsWith(`${action.payload}`))
+            state.searchCountry = state.countries.filter(item =>
+                item.name.toLowerCase().startsWith(`${action.payload}`)
+            )
         }
     },
     extraReducers: (builder) => {

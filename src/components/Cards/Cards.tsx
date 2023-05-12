@@ -11,12 +11,13 @@ const Cards: FC = () => {
 
     useEffect(() => {
         dispatch(fetchData('all'))
-    }, [])
+    }, [dispatch])
 
 
     const [searchText, setSearchText] = useState<string>('')
 
-    const state = useAppSelector(state => state.data.searchCountry.length > 0 ? state.data.searchCountry : state.data.countries);
+
+    const state = useAppSelector(state => state.data.searchCountry.length > 0 || searchText ? state.data.searchCountry : state.data.countries);
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const text = event.target.value.trim().toLowerCase();
         setSearchText(text);
