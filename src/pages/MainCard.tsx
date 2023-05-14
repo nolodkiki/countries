@@ -10,7 +10,6 @@ import { useAppSelector } from "../hook"
 const MainCard: FC = () => {
     const { name, nativeName, population, region, capital, flag, subregion, tld, currencies, languages, borders } = useAppSelector(state => state.data.country[0])
     const { loading, country } = useAppSelector(state => state.data)
-    useEffect(() => { }, [loading])
 
     return (
         <>
