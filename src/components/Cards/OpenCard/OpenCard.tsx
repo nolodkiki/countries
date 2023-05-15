@@ -36,10 +36,8 @@ const OpenCard: FC<IProps> = ({ name, nativeName, population, region, capital, f
                         <p>Population: <span>{population}</span></p>
                         <p>Region: <span>{region}</span></p>
                         <p>Sub Region: <span>{subregion}</span></p>
-                        <p>Capital: <span>{capital}</span></p>
-                        <p>Top Level Domain: <span>{tld ? tld.map(item => (
-                            item
-                        )) : ''}</span></p>
+                        <p>Capital: <span>{capital}</span></p>  
+                        <p>Top Level Domain: <span>{tld}</span></p>
                         <p>Currencies: <span>{currencies}</span></p>
                         <p>Languages: <span>{languages}</span></p>
                     </div>

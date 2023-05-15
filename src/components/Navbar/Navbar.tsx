@@ -10,6 +10,7 @@ interface IProps {
 }
 
 const Navbar: FC<IProps> = ({ value, handleSearch }) => {
+    
 
     return (
         <div className={`${style.search_wrapper} flex-between`}>
