@@ -1,7 +1,7 @@
 import style from './search.module.scss'
 import searchIcon from '../../assets/icons/search.png'
 import { FC } from 'react'
-import { useAppDispatch } from '../../hook'
+import { useAppDispatch, useAppSelector } from '../../hook'
 import { search } from '../../redux/slices/dataSlice'
 
 interface IProps {
@@ -10,10 +10,11 @@ interface IProps {
 }
 
 const Search: FC<IProps> = ({ value, handleSearch }) => {
+    const searchValue = useAppSelector(state => state.data.searchValue)
     return (
         <div className={style.search}>
             <img className={`icon`} src={searchIcon} alt="" />
-            <input value={value} onChange={handleSearch} className={`${style.input} input`} type="text" placeholder='Search for counttries' />
+            <input value={searchValue} onChange={handleSearch} className={`${style.input} input`} type="text" placeholder='Search for counttries' />
         </div>
     )
 }

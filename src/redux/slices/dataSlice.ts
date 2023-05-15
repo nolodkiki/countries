@@ -28,6 +28,7 @@ interface IinitialState {
     regions: string[]
     loading: boolean
     error: string | null
+    searchValue: string
 }
 
 interface IMap {
@@ -111,6 +112,7 @@ const initialState: IinitialState = {
         }
     ],
     searchCountry: [],
+    searchValue: '',
     loading: true,
     error: null
 }
@@ -120,6 +122,7 @@ export const dataSlice = createSlice({
     initialState,
     reducers: {
         search(state, action) {
+            state.searchValue = action.payload
             state.searchCountry = state.countries.filter(item =>
                 item.name.toLowerCase().startsWith(`${action.payload}`)
             )
@@ -138,6 +141,7 @@ export const dataSlice = createSlice({
             .addCase(fetchData.fulfilled, (state, action) => {
                 state.countries = action.payload
                 state.loading = false
+                state.searchCountry = []
             })
             .addCase(fetchCountry.fulfilled, (state, action) => {
                 state.country = action.payload
