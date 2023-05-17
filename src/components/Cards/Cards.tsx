@@ -20,7 +20,6 @@ const Cards: FC = () => {
         const text = event.target.value.trim().toLowerCase();
         setSearchText(text);
 
-
         dispatch(search(text));
     }
 

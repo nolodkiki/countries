@@ -1,8 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import style from "./openCard.module.scss"
-// import flag from '../../../assets/flag.png'
-import { Link } from 'react-router-dom'
-import { useAppSelector } from "../../../hook";
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -21,11 +19,16 @@ interface IProps {
 }
 
 const OpenCard: FC<IProps> = ({ name, nativeName, population, region, capital, flag, subregion, tld, currencies, languages, borders }) => {
+    const navigate = useNavigate()
+
+    const addSpace = (elem: string[]): any => (
+        elem.map(item => `${item} `)
+    )
 
 
     return (
         <div className={style.card}>
-            <Link to='/'><h1><button className={style.button_img}>Back</button></h1></Link>
+            <h1><button onClick={() => navigate(-1)} className={style.button_img}>Back</button></h1>
 
             <div className={style.card_inner}>
                 <img src={flag} />
@@ -36,10 +39,10 @@ const OpenCard: FC<IProps> = ({ name, nativeName, population, region, capital, f
                         <p>Population: <span>{population}</span></p>
                         <p>Region: <span>{region}</span></p>
                         <p>Sub Region: <span>{subregion}</span></p>
-                        <p>Capital: <span>{capital}</span></p>  
-                        <p>Top Level Domain: <span>{tld}</span></p>
+                        <p>Capital: <span>{capital}</span></p>
+                        <p>Top Level Domain: <span>{addSpace(tld)}</span></p>
                         <p>Currencies: <span>{currencies}</span></p>
-                        <p>Languages: <span>{languages}</span></p>
+                        <p>Languages: <span>{addSpace(languages)}</span></p>
                     </div>
                     {/* <div className={style.border}>
                         <p>Border Countries:</p>

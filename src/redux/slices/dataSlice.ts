@@ -53,6 +53,10 @@ type TCountryItem = TCountry & IMap & {
     }
 }
 
+// Добавляем запятые в чилсо
+const numberDelimiter = (num: number) => {
+    return num.toLocaleString('en-US', { useGrouping: true })
+}
 
 
 type TItem = Idata & IMap
@@ -64,7 +68,7 @@ export const fetchData = createAsyncThunk<Idata[], string>(
         const data = await respons.json()
         return data.map((item: TItem) => ({
             name: item.name.common,
-            population: item.population,
+            population: numberDelimiter(item.population),
             region: item.region,
             capital: item.capital,
             flag: item.flags.svg
@@ -80,7 +84,7 @@ export const fetchCountry = createAsyncThunk<TCountryItem[], string>(
             flag: item.flags.svg,
             name: item.name.common,
             nativeName: item.name.nativeName?.[Object.keys(item.name.nativeName)[0]]?.official,
-            population: item.population,
+            population: numberDelimiter(item.population),
             region: item.region,
             subregion: item.subregion,
             capital: item.capital,

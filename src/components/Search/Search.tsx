@@ -1,8 +1,7 @@
 import style from './search.module.scss'
 import searchIcon from '../../assets/icons/search.png'
 import { FC } from 'react'
-import { useAppDispatch, useAppSelector } from '../../hook'
-import { search } from '../../redux/slices/dataSlice'
+import { useAppSelector } from '../../hook'
 
 interface IProps {
     value: string
