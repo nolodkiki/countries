@@ -2,23 +2,25 @@ import Card from './pages/MainCard'
 import Main from './pages/Main'
 import './styles/main.scss'
 import { Routes, Route } from 'react-router-dom'
-import { useAppDispatch } from './hook'
+import { useAppDispatch, useAppSelector } from './hook'
 import { useEffect } from 'react'
 import { fetchData } from './redux/slices/dataSlice'
 
 function App() {
+  const mode = useAppSelector(state => state.data.darkMode)
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchData('all'))
   }, [])
 
+
   return (
-    <>
+    <div className={mode ? 'theme-dark' : undefined}>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/open' element={<Card />} />
       </Routes>
-    </>
+    </div>
 
   )
 }

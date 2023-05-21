@@ -1,4 +1,5 @@
 @import "./variables";
+
 #root {
     color: $light-primary-color;
     font-size: $primary-font-size;
@@ -7,5 +8,31 @@
     font-style: $font-style-root;
     font-size: $font-size-primary;
     background-color: $light-background-color;
-    height: 100vh;
+}
+
+.theme-dark {
+    background-color: $dark-background-color;
+    color: $dark-primary-color;
+    min-height: 100vh;
+
+    body,
+    h1,
+    input,
+    button,
+    ul,
+    a,
+    .header,
+    .card {
+        color: $dark-primary-color;
+    }
+
+    input,
+    button,
+    ul,
+    a,
+    .header,
+    .card {
+        background-color: $dark-elements-color;
+        border-color: $dark-primary-color;
+    }
 }
