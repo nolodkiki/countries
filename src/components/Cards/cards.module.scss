@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 40px;
+    // min-height: calc(100vh - 190px);
 
     padding: 40px 0;
     @media screen and (max-width: 1150px) {

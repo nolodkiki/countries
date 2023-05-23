@@ -19,7 +19,7 @@ const MainCard: FC = () => {
                     ? <div>Loading...</div>
                     : country.length > 0
                         ? (
-                            <OpenCard key={name} name={name} nativeName={nativeName} population={population} region={region} capital={capital} flag={flag} subregion={subregion} tld={tld} currencies={currencies} languages={languages} borders={borders} />
+                            <OpenCard name={name} nativeName={nativeName} population={population} region={region} capital={capital} flag={flag} subregion={subregion} tld={tld} currencies={currencies} languages={languages} borders={borders} />
                         )
                         : (
                             <div>No data available</div>

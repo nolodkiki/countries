@@ -2,6 +2,8 @@ import { FC, memo } from "react";
 import style from "./openCard.module.scss"
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from "../../../hook";
+import whiteArrow from "../../../assets/icons/lightLeftArrow.png"
+import blackArrow from "../../../assets/icons/darkLeftArrow.png"
 
 
 
@@ -20,18 +22,15 @@ interface IProps {
 }
 
 const OpenCard: FC<IProps> = memo(({ name, nativeName, population, region, capital, flag, subregion, tld, currencies, languages, borders }) => {
-    const mode = useAppSelector(state => state.data.darkMode)
+    const { darkMode } = useAppSelector(state => state.data)
     const navigate = useNavigate()
 
-    const addSpace = (elem: string[] | undefined): string[] => (
-        elem ? elem.map(item => `${item} `) : []
-    )
 
 
 
     return (
-        <div className={`${style.opencard} ${mode ? 'theme-dark' : ''}`}>
-            <h1><button onClick={() => navigate(-1)} className={style.button_img}>Back</button></h1>
+        <div className={` ${style.opencard}`}>
+            <button onClick={() => navigate(-1)} className={style.button_img}><img src={darkMode ? whiteArrow : blackArrow} /><h1>Back</h1></button>
 
             <div className={`${style.card_inner}  `}>
                 <img src={flag} />
