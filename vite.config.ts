@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/countries/',
   plugins: [react()],
-
+  base: 'https://nolodkiki.github.io/countries'
 })
