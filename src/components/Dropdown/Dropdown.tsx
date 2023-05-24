@@ -1,13 +1,14 @@
 import style from './dropdown.module.scss'
 
-import arrow from '../../assets/icons/arrow.png'
+import arrowBlack from '../../assets/icons/arrowBlack.png'
+import arrowWhite from '../../assets/icons/arrowWhite.png'
 import { FC, useState } from 'react'
 import { fetchData } from '../../redux/slices/dataSlice'
 import { useAppDispatch, useAppSelector } from '../../hook'
 
 const Dropdown: FC = () => {
     const dispatch = useAppDispatch()
-    const state = useAppSelector(state => state.data)
+    const { regions, darkMode } = useAppSelector(state => state.data)
 
 
     const [show, setShow] = useState(false)
@@ -16,7 +17,7 @@ const Dropdown: FC = () => {
         dispatch(fetchData(region))
     }
 
-    const renderRegions = state.regions.map(item => (
+    const renderRegions = regions.map(item => (
         <li onClick={() => { fetchRegion(`region/${item}`) }} className="dropdown-item">{item}</li>
     ))
 
@@ -25,7 +26,7 @@ const Dropdown: FC = () => {
         <div className="dropdown">
             <button onClick={() => { setShow(!show) }} className={style.dropdown_togle}>
                 Filter by Region
-                <img src={arrow} alt='arrow' />
+                <img className={style.arrow} src={darkMode ? arrowWhite : arrowBlack} alt='arrow' />
             </button>
             {show ? <ul className={style.dropdown_menu}>{renderRegions}</ul> : null}
         </div>
