@@ -5,6 +5,11 @@
     h1 {
         font-size: $font-size-h1;
     }
+    @media screen and (max-width: 620px) {
+        h1 {
+            font-size: 15px;
+        }
+    }
 }
 
 .mod {
@@ -14,5 +19,8 @@
     cursor: pointer;
     & img {
         margin-bottom: 2px;
+    }
+    @media screen and (max-width: 620px) {
+        font-size: 15px;
     }
 }

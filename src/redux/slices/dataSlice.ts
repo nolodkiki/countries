@@ -118,7 +118,7 @@ const initialState: IinitialState = {
     searchValue: '',
     loading: true,
     error: null,
-    darkMode: false,
+    darkMode: true,
 };
 
 export const dataSlice = createSlice({

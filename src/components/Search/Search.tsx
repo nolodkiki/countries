@@ -13,7 +13,7 @@ const Search: FC<IProps> = ({ value, handleSearch }) => {
     return (
         <div className={style.search}>
             <img className={`icon`} src={searchIcon} alt="" />
-            <input value={searchValue} onChange={handleSearch} className={`${style.input} input`} type="text" placeholder='Search for counttries' />
+            <input value={searchValue} onChange={handleSearch} className={`input`} type="text" placeholder='Search for counttries' />
         </div>
     )
 }

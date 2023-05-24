@@ -2,13 +2,21 @@
 
 .search {
     position: relative;
-    & img {
-        height: 28px;
+    width: 500px;
+    img {
         position: absolute;
+        height: 28px;
         left: 30px;
         top: 15px;
     }
-    & input {
+    input {
         padding-left: 80px;
+    }
+
+    @media screen and (max-width: 900px) {
+        width: 300px;
+    }
+    @media screen and (max-width: 620px) {
+        width: 100%;
     }
 }
