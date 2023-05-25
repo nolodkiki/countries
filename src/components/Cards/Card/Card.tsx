@@ -26,7 +26,7 @@ const Card: FC<IProps> = ({ name, population, region, capital, flag }) => {
 
 
     return (
-        <Link to='/open' onClick={() => dispatch(fetchCountry(name))} className={style.card}>
+        <Link to='/countries/open' onClick={() => dispatch(fetchCountry(name))} className={style.card}>
             <div className={style.card_flag}>
                 <img src={flag} alt="flag" />
             </div>

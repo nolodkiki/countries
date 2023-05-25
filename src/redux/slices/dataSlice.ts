@@ -127,8 +127,11 @@ export const dataSlice = createSlice({
     reducers: {
         search: (state, action: PayloadAction<string>) => {
             state.searchValue = action.payload;
-            state.searchCountry = state.countries.filter((item) =>
-                item.name.toLowerCase().startsWith(action.payload.toLowerCase())
+            state.searchCountry = state.countries.filter((item) => {
+                const name = item.name.toLowerCase();
+                const searchQuery = action.payload.toLowerCase();
+                return name.startsWith(searchQuery) || name.includes(` ${searchQuery}`);
+            }
             );
         },
         toggleDarkMode: (state, action: PayloadAction<boolean>) => {

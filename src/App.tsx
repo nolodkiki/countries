@@ -17,8 +17,8 @@ function App() {
   return (
     <div className={mode ? 'theme-dark' : undefined}>
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/open' element={<Card />} />
+        <Route path='/countries' element={<Main />} />
+        <Route path='/countries/open' element={<Card />} />
       </Routes>
     </div>
 
