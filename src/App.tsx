@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { fetchData } from './redux/slices/dataSlice'
 
 function App() {
-  const mode = useAppSelector(state => state.data.darkMode)
+  const { darkMode, country } = useAppSelector(state => state.data)
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchData('all'))
@@ -15,7 +15,7 @@ function App() {
 
 
   return (
-    <div className={mode ? 'theme-dark' : undefined}>
+    <div className={darkMode ? 'theme-dark' : undefined}>
       <Routes>
         <Route path='/countries' element={<Main />} />
         <Route path='/countries/open' element={<Card />} />
