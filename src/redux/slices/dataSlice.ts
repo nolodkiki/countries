@@ -149,6 +149,7 @@ export const dataSlice = createSlice({
             .addCase(fetchCountry.pending, (state) => {
                 state.loading = true;
                 state.error = null;
+                state.country = []
             })
             .addCase(fetchData.fulfilled, (state, action) => {
                 state.countries = action.payload;

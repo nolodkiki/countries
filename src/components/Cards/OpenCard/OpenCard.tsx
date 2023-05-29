@@ -1,9 +1,10 @@
-import { FC, memo } from "react";
+import { FC, memo, useEffect } from "react";
 import style from "./openCard.module.scss"
-import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from "../../../hook";
+import { useNavigate, useParams } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from "../../../hook";
 import whiteArrow from "../../../assets/icons/lightLeftArrow.png"
 import blackArrow from "../../../assets/icons/darkLeftArrow.png"
+import { fetchCountry } from "../../../redux/slices/dataSlice";
 
 
 
@@ -24,7 +25,6 @@ interface IProps {
 const OpenCard: FC<IProps> = memo(({ name, nativeName, population, region, capital, flag, subregion, tld, currencies, languages, borders }) => {
     const { darkMode } = useAppSelector(state => state.data)
     const navigate = useNavigate()
-
 
 
 
