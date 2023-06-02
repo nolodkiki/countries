@@ -4,11 +4,10 @@ import { FC } from 'react'
 import { useAppSelector } from '../../hook'
 
 interface IProps {
-    value: string
     handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Search: FC<IProps> = ({ value, handleSearch }) => {
+const Search: FC<IProps> = ({ handleSearch }) => {
     const searchValue = useAppSelector(state => state.data.searchValue)
     return (
         <div className={style.search}>

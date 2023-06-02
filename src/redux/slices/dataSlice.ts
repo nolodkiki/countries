@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../index';
 
-interface Idata {
+interface IData {
     name: string;
     population: number;
     region: string;
-    capital: string[];
+    capital?: string[];
     flag: string;
 }
 
@@ -18,12 +18,12 @@ interface ICountry {
     borders: string[];
 }
 
-type TCountry = ICountry & Idata;
+type TCountry = ICountry & IData;
 
-interface IinitialState {
-    countries: Idata[];
+interface IInitialState {
+    countries: IData[];
     country: TCountry[];
-    searchCountry: Idata[];
+    searchCountry: IData[];
     regions: string[];
     loading: boolean;
     error: string | null;
@@ -58,13 +58,13 @@ const numberDelimiter = (num: number): string => {
     return num.toLocaleString('en-US', { useGrouping: true });
 };
 
-type TItem = Idata & IMap;
+type TItem = IData & IMap;
 
-export const fetchData = createAsyncThunk<Idata[], string>(
+export const fetchData = createAsyncThunk<IData[], string>(
     'data/fetchData',
     async function (filter = 'all') {
-        const respons = await fetch(`https://restcountries.com/v3.1/${filter}`);
-        const data = await respons.json();
+        const response = await fetch(`https://restcountries.com/v3.1/${filter}`);
+        const data = await response.json();
         return data.map((item: TItem) => ({
             name: item.name.common,
             population: numberDelimiter(item.population),
@@ -78,42 +78,37 @@ export const fetchData = createAsyncThunk<Idata[], string>(
 export const fetchCountry = createAsyncThunk<TCountryItem[], string>(
     'data/fetchCountry',
     async function (countryName) {
-        const respons = await fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`);
-        const data = await respons.json();
-        return data.map((item: TCountryItem) => ({
-            flag: item.flags.svg,
-            name: item.name.common,
-            nativeName: item.name.nativeName?.[Object.keys(item.name.nativeName)[0]]?.official,
-            population: numberDelimiter(item.population),
-            region: item.region,
-            subregion: item.subregion,
-            capital: item.capital,
-            tld: item.tld,
-            currencies: Object.keys(item.currencies)[0],
-            languages: Object.values(item.languages),
-            borders: item.borders,
-        }));
+        const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`);
+        const data = await response.json();
+        return data.map((item: TCountryItem) => {
+            const nativeName =
+                item.name.nativeName &&
+                item.name.nativeName[Object.keys(item.name.nativeName)[0]].official;
+            const currencies = item.currencies && Object.keys(item.currencies)[0];
+            const languages = item.languages
+                ? Object.values(item.languages)
+                : [];
+            return {
+                flag: item.flags.svg,
+                name: item.name.common,
+                nativeName: nativeName || '',
+                population: numberDelimiter(item.population),
+                region: item.region,
+                subregion: item.subregion,
+                capital: item.capital,
+                tld: item.tld,
+                currencies: currencies || '',
+                languages: languages,
+                borders: item.borders,
+            };
+        });
     }
 );
 
-const initialState: IinitialState = {
+const initialState: IInitialState = {
     countries: [],
     regions: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-    country: [
-        {
-            flag: '',
-            name: '',
-            nativeName: '',
-            population: 0,
-            region: '',
-            capital: [],
-            subregion: [],
-            tld: [],
-            currencies: '',
-            languages: [],
-            borders: [],
-        },
-    ],
+    country: [],
     searchCountry: [],
     searchValue: '',
     loading: true,
@@ -131,8 +126,7 @@ export const dataSlice = createSlice({
                 const name = item.name.toLowerCase();
                 const searchQuery = action.payload.toLowerCase();
                 return name.startsWith(searchQuery) || name.includes(` ${searchQuery}`);
-            }
-            );
+            });
         },
         toggleDarkMode: (state, action: PayloadAction<boolean>) => {
             state.darkMode = action.payload;
@@ -149,7 +143,7 @@ export const dataSlice = createSlice({
             .addCase(fetchCountry.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-                state.country = []
+                state.country = [];
             })
             .addCase(fetchData.fulfilled, (state, action) => {
                 state.countries = action.payload;
@@ -158,7 +152,6 @@ export const dataSlice = createSlice({
             .addCase(fetchCountry.fulfilled, (state, action) => {
                 state.country = action.payload;
                 state.loading = false;
-                // state.searchCountry = [];
             })
             .addCase(fetchData.rejected, (state, action) => {
                 state.loading = false;
@@ -167,7 +160,7 @@ export const dataSlice = createSlice({
             .addCase(fetchCountry.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
-            })
+            });
     },
 });
 

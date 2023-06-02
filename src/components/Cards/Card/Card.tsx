@@ -11,7 +11,7 @@ interface IProps {
     name: string,
     population: number,
     region: string,
-    capital: string[],
+    capital?: string[],
     flag: string
 }
 

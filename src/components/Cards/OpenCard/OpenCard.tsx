@@ -13,7 +13,7 @@ interface IProps {
     nativeName: string,
     population: number,
     region: string,
-    capital: string[],
+    capital?: string[],
     flag: string,
     subregion: string[],
     tld?: string[],
@@ -25,7 +25,6 @@ interface IProps {
 const OpenCard: FC<IProps> = memo(({ name, nativeName, population, region, capital, flag, subregion, tld, currencies, languages, borders }) => {
     const { darkMode } = useAppSelector(state => state.data)
     const navigate = useNavigate()
-
 
 
     return (

@@ -5,16 +5,15 @@ import style from './navbar.module.scss'
 
 
 interface IProps {
-    value: string
     handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Navbar: FC<IProps> = ({ value, handleSearch }) => {
-    
+const Navbar: FC<IProps> = ({ handleSearch }) => {
+
 
     return (
         <div className={`${style.search_wrapper} flex-between`}>
-            <Search value={value} handleSearch={handleSearch} />
+            <Search handleSearch={handleSearch} />
             <Dropdown />
         </div>
     )
