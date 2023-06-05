@@ -80,28 +80,64 @@ export const fetchCountry = createAsyncThunk<TCountryItem[], string>(
     async function (countryName) {
         const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`);
         const data = await response.json();
-        return data.map((item: TCountryItem) => {
-            const nativeName =
-                item.name.nativeName &&
-                item.name.nativeName[Object.keys(item.name.nativeName)[0]].official;
-            const currencies = item.currencies && Object.keys(item.currencies)[0];
-            const languages = item.languages
-                ? Object.values(item.languages)
-                : [];
-            return {
-                flag: item.flags.svg,
-                name: item.name.common,
-                nativeName: nativeName || '',
-                population: numberDelimiter(item.population),
-                region: item.region,
-                subregion: item.subregion,
-                capital: item.capital,
-                tld: item.tld,
-                currencies: currencies || '',
-                languages: languages,
-                borders: item.borders,
-            };
-        });
+
+        if (data[0].borders) {
+            const borderCountries = await Promise.all(
+                data[0].borders.map(async (border: string) => {
+                    const borderResponse = await fetch(`https://restcountries.com/v3.1/alpha/${border}`);
+                    const borderData = await borderResponse.json();
+                    return borderData[0].name.common;
+                })
+            );
+
+            return data.map((item: TCountryItem) => {
+                const nativeName =
+                    item.name.nativeName &&
+                    item.name.nativeName[Object.keys(item.name.nativeName)[0]].official;
+                const currencies = item.currencies && Object.keys(item.currencies)[0];
+                const languages = item.languages ? Object.values(item.languages) : [];
+                return {
+                    flag: item.flags.svg,
+                    name: item.name.common,
+                    nativeName: nativeName || '',
+                    population: numberDelimiter(item.population),
+                    region: item.region,
+                    subregion: item.subregion,
+                    capital: item.capital,
+                    tld: item.tld,
+                    currencies: currencies || '',
+                    languages: languages,
+                    borders: borderCountries || [],
+                };
+            });
+        }
+        else {
+            return data.map((item: TCountryItem) => {
+                const nativeName =
+                    item.name.nativeName &&
+                    item.name.nativeName[Object.keys(item.name.nativeName)[0]].official;
+                const currencies = item.currencies && Object.keys(item.currencies)[0];
+                const languages = item.languages
+                    ? Object.values(item.languages)
+                    : [];
+                return {
+                    flag: item.flags.svg,
+                    name: item.name.common,
+                    nativeName: nativeName || '',
+                    population: numberDelimiter(item.population),
+                    region: item.region,
+                    subregion: item.subregion,
+                    capital: item.capital,
+                    tld: item.tld,
+                    currencies: currencies || '',
+                    languages: languages,
+                    // borders: item.borders,
+                    borders: '',
+                };
+            });
+        }
+
+
     }
 );
 

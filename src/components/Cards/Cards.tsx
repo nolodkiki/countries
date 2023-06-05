@@ -20,7 +20,6 @@ const Cards: FC = () => {
     const renderCards = dataToRender.map(({ name, population, region, capital, flag }) => (
         <Card key={name} name={name} population={population} region={region} capital={capital} flag={flag} />
     ));
-    debugger
     const skeletonCards = Array.from({ length: 8 }, (_, id) => <Skeleton key={id} />);
 
     return (

@@ -60,7 +60,7 @@ const MainCard: FC = () => {
                 {loading ? (
                     <div>Loading...</div>
                 ) : country.length > 0 ? (
-                    <OpenCard {...country[0]} />
+                    <OpenCard />
                 ) : (
                     <div>No data available</div>
                 )}
