@@ -44,7 +44,6 @@ import { useParams } from "react-router-dom";
 const MainCard: FC = () => {
     const dispatch = useAppDispatch();
     const { countryName } = useParams();
-    const { country, loading } = useAppSelector(state => state.data);
 
     useEffect(() => {
         if (countryName) {
@@ -57,13 +56,7 @@ const MainCard: FC = () => {
         <>
             <Header />
             <div className="container">
-                {loading ? (
-                    <div>Loading...</div>
-                ) : country.length > 0 ? (
-                    <OpenCard />
-                ) : (
-                    <div>No data available</div>
-                )}
+                <OpenCard />
             </div>
         </>
     );

@@ -7,7 +7,7 @@ import OpenCardInformation from "./OpenCardInformation";
 import OpenCardHeader from "./OpenCardHeader";
 
 const OpenCard: FC = () => {
-    const { darkMode } = useAppSelector((state) => state.data);
+    const { darkMode, loading, country } = useAppSelector((state) => state.data);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -22,7 +22,14 @@ const OpenCard: FC = () => {
     return (
         <div className={style.opencard}>
             <OpenCardHeader darkMode={darkMode} onNavigateBack={onNavigateBack} />
-            <OpenCardInformation fetchCountry={onFetchCountry} />
+            {loading ? (
+                <div>Loading...</div>
+            ) : country.length > 0 ? (
+                <OpenCardInformation fetchCountry={onFetchCountry} />
+            ) : (
+                <div>No data available</div>
+            )}
+
         </div>
     );
 };

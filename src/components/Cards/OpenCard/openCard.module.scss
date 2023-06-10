@@ -98,10 +98,18 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    @media screen and (max-width: 620px) {
+        align-items: start;
+        flex-direction: column;
+    }
 
     &_btns {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
     }
+}
+.card_button_borders {
+    @include box-shadow(0px 4px 12px -3px rgba(34, 60, 80, 0.1));
+    background-color: $dark-primary-color;
 }
